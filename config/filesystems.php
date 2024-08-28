@@ -82,4 +82,44 @@ return [
         public_path('storage') => storage_path('app/public'),
     ],
 
+    'disks' => [
+
+    // Disk default yang sudah ada
+    'local' => [
+        'driver' => 'local',
+        'root' => storage_path('app'),
+    ],
+
+    'public' => [
+        'driver' => 'local',
+        'root' => storage_path('app/public'),
+        'url' => env('APP_URL').'/storage',
+        'visibility' => 'public',
+    ],
+
+    // Tambahkan disk untuk admin
+    'admin' => [
+        'driver' => 'local',
+        'root' => public_path('uploads'), // Ini adalah direktori tujuan di dalam folder 'public'
+        'visibility' => 'public',
+    ],
+
+    // Disk lain yang mungkin ada
+    's3' => [
+        'driver' => 's3',
+        'key' => env('AWS_ACCESS_KEY_ID'),
+        'secret' => env('AWS_SECRET_ACCESS_KEY'),
+        'region' => env('AWS_DEFAULT_REGION'),
+        'bucket' => env('AWS_BUCKET'),
+        'url' => env('AWS_URL'),
+        'endpoint' => env('AWS_ENDPOINT'),
+    ],
+
+    'admin' => [
+        'driver' => 'local',
+        'root' => public_path('uploads'), // Tentukan folder tujuan di dalam 'public'
+        'visibility' => 'public',
+    ],
+],
+
 ];

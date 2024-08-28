@@ -10,6 +10,10 @@ module.exports = {
   theme: {
     extend: {},
   },
+  content: [
+    './resources/views/**/*.blade.php',
+    './resources/js/**/*.vue',
+  ],
   variants: {},
   plugins: [
     require('taos/plugin'), 
