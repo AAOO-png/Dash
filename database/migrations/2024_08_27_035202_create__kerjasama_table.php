@@ -14,7 +14,7 @@ class CreateKerjasamaTable extends Migration
      */
     public function up()
     {
-        Schema::create('kerjasamas', function (Blueprint $table) {
+        Schema::create('kerjasama', function (Blueprint $table) {
             $table->id();
             $table->string('name_img');
             $table->string("image")->image; // Nama file logo

@@ -100,7 +100,7 @@
                         @endif
 
                         <div class="mt-4 flex items-center space-x-4">
-                            <form action="{{ route('testZone.toggle', $slider->id) }}" method="POST"
+                            <form action="{{ route('slides.toggle', $slider->id) }}" method="POST"
                                 class="display:inline">
                                 @csrf
                                 @method('PATCH')
@@ -111,10 +111,10 @@
                                 </label>
                             </form>
 
-                            <a href="{{ route('testZone.edit', $slider->id) }}"
+                            <a href="{{ route('slides.edit', $slider->id) }}"
                                 class="text-indigo-600 hover:text-indigo-800">Edit</a>
 
-                            <form action="{{ route('testZone.destroy', $slider->id) }}" method="POST"
+                            <form action="{{ route('slides.destroy', $slider->id) }}" method="POST"
                                 class="flex items-center">
                                 @csrf
                                 @method('DELETE')

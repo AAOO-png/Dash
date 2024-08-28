@@ -20,8 +20,8 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/test', function () {
-    return view('testZone', [
+Route::get('/slide', function () {
+    return view('admin.slides', [
         'products' => Product::all(),
     ]);
 });
@@ -55,7 +55,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 });
 
 // Route untuk testZone
-Route::prefix('test')->name('testZone.')->group(function () {
+Route::prefix('slide')->name('slides.')->group(function () {
     Route::get('/', [SlideController::class, 'index'])->name('index');
     Route::post('/', [SlideController::class, 'store'])->name('store');
     Route::get('{id}/edit', [SlideController::class, 'edit'])->name('edit');
