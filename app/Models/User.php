@@ -38,8 +38,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
      // Metode untuk memeriksa apakah pengguna adalah admin
-     public function isAdmin()
-     {
-         return $this->is_admin; // Misalnya, jika ada kolom is_admin
-     }
+    //  public function isAdmin()
+    //  {
+    //      return ; // Misalnya, jika ada kolom is_admin
+    //  }
 }

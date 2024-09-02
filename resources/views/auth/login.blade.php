@@ -13,8 +13,8 @@
     <div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-400 to-indigo-600 p-6">
         <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-8 space-y-8">
             <div class="text-center">
-                <h2 class="text-3xl font-extrabold text-gray-900">Welcome Back!</h2>
-                <p class="text-sm text-gray-500">Please sign in to your account</p>
+                <h2 class="text-3xl font-extrabold text-gray-900">Selamat Datang!</h2>
+                <p class="text-sm text-gray-500">Selamat Datang di Dashboard silahkan masukkan data anda</p>
             </div>
             <form class="space-y-6" action="{{ route('login') }}" method="POST">
                 @csrf

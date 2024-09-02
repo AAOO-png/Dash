@@ -9,7 +9,7 @@ class SlideController extends Controller
     public function index()
     {
         $slides = Slide::all();
-    return view('admin.products.createslide', compact('slides'));
+    return view('admin.slide.createslide', compact('slides'));
     }
     
     
@@ -33,7 +33,7 @@ class SlideController extends Controller
         'is_publish' => $request->has('is_publish') ? 1 : 0,
     ]);
 
-        return redirect()->route('testZone.index')->with('success', 'Slider created successfully.');
+        return redirect()->route('slides.index')->with('success', 'Slider created successfully.');
     }
 
     public function edit($id)
@@ -76,7 +76,7 @@ class SlideController extends Controller
 
         $slider->update($data);
 
-        return redirect()->route('testZone.index')->with('success', 'Slider updated successfully.');
+        return redirect()->route('slides.index')->with('success', 'Slider updated successfully.');
     }
 
     public function destroy($id)
@@ -93,7 +93,7 @@ class SlideController extends Controller
 
         $slider->delete();
 
-        return redirect()->route('testZone.index')->with('success', 'Slider deleted successfully.');
+        return redirect()->route('slides.index')->with('success', 'Slider deleted successfully.');
     }
     public function toggle(Request $request, $id)
     {
@@ -101,6 +101,6 @@ class SlideController extends Controller
         $slider->is_publish = $request->has('is_publish') ? 1 : 0;
         $slider->save();
 
-        return redirect()->route('testZone.index')->with('success', 'Slider visibility updated successfully.');
+        return redirect()->route('slides.index')->with('success', 'Slider visibility updated successfully.');
     }
 }

@@ -6,8 +6,9 @@ use App\Models\Kerjasama;
 use App\Http\Controllers\test;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BrandController;
+// use OpenAdmin\Admin\Controllers\Dashboard;
 use App\Http\Controllers\SlideController;
-use OpenAdmin\Admin\Controllers\Dashboard;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KerjasamaController;
@@ -21,7 +22,7 @@ Route::get('/', function () {
 });
 
 Route::get('/slide', function () {
-    return view('admin.slides', [
+    return view('admin.slide.index', [
         'products' => Product::all(),
     ]);
 });
@@ -67,6 +68,12 @@ Route::prefix('slide')->name('slides.')->group(function () {
 //rute edit product
 Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('admin.products.edit');
 
+Route::prefix('admin')->group(function () {
+    Route::resource('brands', BrandController::class);
+});
+
+
+
 // Rute untuk Kerjasama
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('kerjasama', [KerjasamaController::class, 'index'])->name('admin.kerjasama.index');
@@ -77,4 +84,5 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::put('/admin/kerjasama/{id}', [KerjasamaController::class, 'update'])->name('admin.kerjasama.update');
 
 });
+
 
