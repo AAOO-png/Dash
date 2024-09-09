@@ -13,7 +13,7 @@
 @section('content')
     <div class="w-full flex justify-center">
         <div class="xl:w-1/2 lg:w-2/3 md:w-3/4 sm:w-full">
-            <form class="space-y-6 bg-white shadow-lg rounded-xl p-8" action="{{ route('admin.products.store') }}" method="POST">
+            <form class="space-y-6 bg-white shadow-lg rounded-xl p-8" action="{{ route('admin.product.store') }}" method="POST">
                 @csrf
 
                 <div>

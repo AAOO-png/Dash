@@ -12,9 +12,13 @@
                 <h3 class="text-lg font-medium text-gray-900"> {{$product->name_product}} </h3>
                 <p class="text-sm text-gray-600">
                     Kategori:
-                    @foreach ($product->kategori_product as $kategori)
-                        {{ $kategori->name_kategori }}
-                    @endforeach
+                    @if ($product->kategori_produk && $product->kategori_produk->isNotEmpty())
+                        @foreach ($product->kategori_produk as $kategori)
+                            {{ $kategori->name_kategori }}
+                        @endforeach
+                    @else
+                        No Category
+                    @endif
                 </p>
             </div>
         </a>

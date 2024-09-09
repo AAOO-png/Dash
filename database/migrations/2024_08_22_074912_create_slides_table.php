@@ -15,8 +15,10 @@ class CreateSlidesTable extends Migration
     {
         Schema::create('slides', function (Blueprint $table) {
             $table->id();
-            $table->string('name_image'); // Pastikan nama kolom sesuai
-            $table->string('image');
+            $table->string('name_image'); // Name that will be used for slug generation
+            $table->string('slug'); // Slug 
+            $table->string('image'); // Image 
+            $table->text('description')->nullable(); // Description 
             $table->boolean('is_publish');
             $table->timestamps();
         });

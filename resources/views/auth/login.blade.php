@@ -9,10 +9,13 @@
     <!-- Include Alpine.js -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs" defer></script>
 </head>
-<body class="bg-gray-100">
-    <div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-400 to-indigo-600 p-6">
-        <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-8 space-y-8">
+<body style="background-image: url('{{ asset('uploads/lala.png') }}'); background-size: cover; background-repeat: no-repeat; background-position: center center;" class="bg-gray-100">
+    <div class="min-h-screen flex items-center justify-center p-6">
+        <div class="w-full max-w-md rounded-lg shadow-lg p-8 space-y-8" style="background-color: rgba(255, 255, 255, 0.74);">
             <div class="text-center">
+                <!-- Menambahkan gambar di sini -->
+                <img src="https://dinamikaindomedia.co.id/tests/wUeRvwqCPJpADXYoiPBsJ3u0cCzuUvE1f2TbYZbF.png" alt="Logo" class="mx-auto mb-4" style="max-width: 100px;">
+                
                 <h2 class="text-3xl font-extrabold text-gray-900">Selamat Datang!</h2>
                 <p class="text-sm text-gray-500">Selamat Datang di Dashboard silahkan masukkan data anda</p>
             </div>

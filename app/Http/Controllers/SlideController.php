@@ -15,26 +15,22 @@ class SlideController extends Controller
     
     public function store(Request $request)
 {
-    // Validasi request
     $request->validate([
-        'name_img' => 'required|string|max:255',
-        'img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'is_publish' => 'nullable|boolean',
+        'name_img' => 'required',
+        'slug' => 'required|unique:slides,slug',
+        'img' => 'required|image',
     ]);
 
-    // Menangani upload file
-    $fileName = time() . '.' . $request->img->extension();  
-    $request->img->move(public_path('uploads'), $fileName);
+    $slide = new Slide();
+    $slide->name_image = $request->input('name_img');
+    $slide->slug = $request->input('slug'); // Manually inputted slug
+    $slide->image = $request->file('img')->store('slides');
 
-    // Membuat record slider baru
-    Slide::create([
-        'name_image' => $request->name_img, // Pastikan nama field sesuai
-        'image' => $fileName,
-        'is_publish' => $request->has('is_publish') ? 1 : 0,
-    ]);
+    $slide->save();
 
-        return redirect()->route('slides.index')->with('success', 'Slider created successfully.');
-    }
+    return redirect()->route('slides.index')->with('success', 'Slide created successfully');
+}
+
 
     public function edit($id)
     {
@@ -49,6 +45,7 @@ class SlideController extends Controller
         // Validate the request
         $request->validate([
             'name_img' => 'required|string|max:255',
+            'slug' => 'required|unique:slides,slug,'.$id.',id',
             'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_publish' => 'nullable|boolean',
         ]);

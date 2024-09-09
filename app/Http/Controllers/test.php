@@ -78,7 +78,7 @@ class test extends Controller
         // Hubungkan setiap produk ke 2 hingga 4 kategori secara acak
         $products->each(function ($product) use ($kategoris) {
             $randomKategoris = $kategoris->random(rand(2, 4)); // Ambil antara 2 hingga 4 kategori acak
-            $product->kategori_product()->syncWithoutDetaching($randomKategoris->pluck('id')->toArray());
+            $product->kategori_produk()->syncWithoutDetaching($randomKategoris->pluck('id')->toArray());
         });
 
         // Periksa hasilnya

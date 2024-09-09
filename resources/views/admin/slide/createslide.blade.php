@@ -55,7 +55,7 @@
             </div>
         @endif
 
-        <form action="{{ route('slides.store') }}" method="POST" enctype="multipart/form-data"
+        <form action="{{ route('admin.slides.store') }}" method="POST" enctype="multipart/form-data"
             class="bg-white p-6 rounded-lg shadow-md">
             @csrf
 
@@ -66,11 +66,25 @@
                     value=""
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             </div>
-
+            
             <div class="mb-4">
                 <label for="img" class="block text-sm font-medium text-gray-700">Upload Image:</label>
                 <input type="file" id="img" name="img" value="" required
                     class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border file:border-gray-300 file:rounded-md file:text-sm file:font-medium file:bg-gray-100 hover:file:bg-gray-200">
+            </div>
+
+            <div class="mb-4">
+                <label for="name_img" class="block text-sm font-medium text-gray-700">Slug:</label>
+                <input type="text" id="slug" name="slug" required
+                    value=""
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+            </div>
+            <div class="mb-4">
+                <label for="name_img" class="block text-sm font-medium text-gray-700"
+                >Deskripsi:</label>
+                <input type="text" id="slug" name="slug" required
+                    value=""
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             </div>
 
             <button type="submit"

@@ -15,10 +15,10 @@ class CreateKategoriProdukTable extends Migration
     {
         Schema::create('kategori_produk', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained()->onDelete('restrict');
-            $table->foreignId('kategori_id')->constrained()->onDelete('restrict');
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('kategori_id')->constrained()->onDelete('cascade');
             $table->timestamps();
-        });        
+        });       
     }
 
     /**
