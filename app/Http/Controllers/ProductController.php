@@ -1,9 +1,8 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Slide;
-use Illuminate\Support\Facades\Log;
 use App\Models\Kategori;
 use App\Models\Product;
 use Illuminate\Support\Str;
@@ -22,26 +21,15 @@ class ProductController extends Controller
             'kategoris' => $kategoris // Kirimkan $kategoris ke view
         ]);
     }
-    // Tampilkan detail produk
-    public function showIndexAdmin(Product $product)
-    {
-        $products = Product::paginate(7);
-        return view('admin.product.index', compact('products'));
-    }
-
-
 
     // Tampilkan form untuk membuat produk baru
     public function create()
     {
         $kategoris = Kategori::all();
-        return view('Admin.product.create', compact('kategoris'));
+        return view('admin.product.create', compact('kategoris'));
     }
 
     // Simpan produk baru ke database
-
-
-
     public function store(Request $request)
     {
         // Validasi input dari form
@@ -58,7 +46,6 @@ class ProductController extends Controller
             // Handle file upload
             $fileName = time() . '.' . $request->img->extension();
             $request->img->move(public_path('uploads'), $fileName);
-
 
             // Generate unique slug
             $slug = Str::slug($request->name);
@@ -84,7 +71,7 @@ class ProductController extends Controller
             $product->kategori_product()->sync($request->kategori);
 
             // Redirect after successful save
-            return redirect()->route('Admin.product.index')->with('success', 'Product created successfully.');
+            return redirect()->route('product.index')->with('success', 'Product created successfully.');
         } catch (\Exception $e) {
             // Handle errors and provide an error message
             return redirect()->back()->with('error', 'Something went wrong: ' . $e->getMessage())->withInput();
@@ -95,27 +82,14 @@ class ProductController extends Controller
     public function show(Product $product, $slug)
     {
         // Load product with kategori_product relationship  
-        $product->load('kategori_product');
-
-        // // Get filters from request
-        // $filters = $request->only('kategori');
-
-        // // Query untuk produk dengan filter kategori
-        // $products = Product::with('kategori_product')
-        //     ->when(isset($filters['kategori']) && $filters['kategori'], function ($query) use ($filters) {
-        //         $query->whereHas('kategori_product', function ($query) use ($filters) {
-        //             $query->where('slug', $filters['kategori']);
-        //         });
-        //     })
-        //     ->get();
-
         $product = Product::where('slug', $slug)->with('kategori_product')->firstOrFail();
-        // dd($product);
-        return view('product', compact('product'), [
+        
+        return view('product', [
             'product' => $product,
             'products' => Product::all(),
         ]);
     }
+
     public function showByKategori(Kategori $kategori = null)
     {
         $products = Product::whereHas('kategori_product', function ($query) use ($kategori) {
@@ -123,21 +97,14 @@ class ProductController extends Controller
         })->with('kategori_product')->get();
 
         if ($kategori) {
-            // Filter produk berdasarkan kategori yang dipilih
-            $products = Product::whereHas('kategori_product', function ($query) use ($kategori) {
-                $query->where('name', $kategori->name);
-            })->with('kategori_product')->get();
-
             $selectedCategory = $kategori->name;
         } else {
-            // Tampilkan semua produk jika tidak ada kategori yang dipilih
             $products = Product::with('kategori_product')->get();
             $selectedCategory = 'All';
         }
 
         $allKategoris = Kategori::all(); // Mengambil semua kategori
 
-        // Mengembalikan view dengan produk yang telah difilter dan semua kategori
         return view('products', [
             'products' => $products,
             'selectedCategory' => $selectedCategory,
@@ -145,24 +112,11 @@ class ProductController extends Controller
         ]);
     }
 
-
-    // public function showBySlug($slug, Request $request)
-    // {
-    //         // Cari produk berdasarkan slug
-    // $product = Product::where('slug', $slug)->with('kategori_product')->firstOrFail();
-
-    //     // Return ke view dengan produk yang ditemukan
-    //     return view('products', [
-    //         'product' => $product,
-    //     ]);
-    // }
-
-
     // Tampilkan form untuk mengedit produk
     public function edit(Product $product)
     {
-        $product = Product::all();
-        return view('admin.product.create', compact('product'));
+        $kategoris = Kategori::all(); // Mengambil semua kategori
+        return view('admin.product.editProduct', compact('product', 'kategoris'));
     }
 
     // Update produk di database
@@ -173,24 +127,40 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'price' => 'required|numeric',
             'description' => 'nullable|string',
-            'kategori' => 'required|array', // Perbarui untuk array kategori
-            'kategori.*' => 'exists:kategoris,id', // Validasi setiap kategori
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi file gambar
+            'kategori' => 'required|array',
+            'kategori.*' => 'exists:kategoris,id',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
-        // Update data produk
-        $product->update([
-            'name' => $request->name,
-            'price' => $request->price,
-            'description' => $request->description,
-        ]);
-
-        // Sinkronisasi kategori dengan produk
-        $product->kategori_product()->sync($request->kategori);
-
-        // Redirect setelah sukses update
-        return redirect()->route('Admin.product.index')->with('success', 'Product updated successfully.');
+    
+        try {
+            // Update data produk
+            $product->update([
+                'name' => $request->name,
+                'price' => $request->price,
+                'description' => $request->description,
+            ]);
+    
+            // Sinkronisasi kategori dengan produk
+            $product->kategori_product()->sync($request->kategori);
+    
+            // Jika ada gambar baru
+            if ($request->hasFile('image')) {
+                // Handle file upload
+                $fileName = time() . '.' . $request->image->extension();
+                $request->image->move(public_path('uploads'), $fileName);
+    
+                // Update nama gambar di database
+                $product->update(['img' => $fileName]);
+            }
+    
+            // Redirect setelah sukses update
+            return redirect()->route('product.index')->with('success', 'Product updated successfully.');
+        } catch (\Exception $e) {
+            // Handle errors and provide an error message
+            return redirect()->back()->with('error', 'Something went wrong: ' . $e->getMessage())->withInput();
+        }
     }
+    
 
     public function destroy($id)
     {
@@ -208,6 +178,4 @@ class ProductController extends Controller
             return redirect()->back()->with('error', 'An error occurred while deleting the product.');
         }
     }
-
-
 }

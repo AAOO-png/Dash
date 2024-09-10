@@ -21,7 +21,27 @@
             @endif
         </div>
 
+        <div class="mb-4">
+            <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+            <textarea id="description" name="description" class="summernote">{{ old('description', $logo->description) }}</textarea>
+        </div>
+
         <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Update</button>
     </form>
 </div>
+@endsection
+
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/summernote-lite/dist/summernote-lite.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#description').summernote({
+            height: 200
+        });
+    });
+</script>
+@endsection
+
+@section('styles')
+<link href="https://cdn.jsdelivr.net/npm/summernote-lite/dist/summernote-lite.min.css" rel="stylesheet">
 @endsection

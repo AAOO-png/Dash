@@ -5,6 +5,7 @@
             <li class="mb-4"><a href="{{ route('dashboard') }}" class="text-lg hover:text-gray-300">Dashboard</a></li>
             <li class="mb-4"><a href="{{ route('admin.slides.index') }}" class="text-lg hover:text-gray-300">Slide</a></li>
             <li class="mb-4"><a href="{{ route('admin.product.index') }}" class="text-lg hover:text-gray-300">Products</a></li>
+            {{-- <li class="mb-4"><a href="{{ route('admin.kategori.index') }}" class="text-lg hover:text-gray-300">Kategori</a></li> --}}
             <li class="mb-4"><a href="{{ route('admin.kerjasama.index') }}" class="text-lg hover:text-gray-300">Kerjasama</a></li>
             <li class="mb-4"><a href="{{ route('admin.brands.index') }}" class="text-lg hover:text-gray-300">Brands</a></li>
         </ul>

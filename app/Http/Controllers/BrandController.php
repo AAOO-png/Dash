@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
@@ -22,7 +23,7 @@ class BrandController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'image' => 'nullable|image',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $imagePath = $request->file('image') ? $request->file('image')->store('brands', 'public') : null;
@@ -44,24 +45,29 @@ class BrandController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'image' => 'nullable|image',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        if ($request->file('image')) {
-            $imagePath = $request->file('image')->store('brands', 'public');
-            $brand->update([
-                'name' => $request->name,
-                'image' => $imagePath,
-            ]);
-        } else {
-            $brand->update(['name' => $request->name]);
+        $data = ['name' => $request->name];
+
+        if ($request->hasFile('image')) {
+            // Delete the old image if it exists
+            if ($brand->image) {
+                Storage::disk('public')->delete($brand->image);
+            }
+
+            // Store the new image
+            $data['image'] = $request->file('image')->store('brands', 'public');
         }
+
+        $brand->update($data);
 
         return redirect()->route('brands.index')->with('success', 'Brand updated successfully.');
     }
 
     public function destroy(Brand $brand)
     {
+        // Delete the image if it exists
         if ($brand->image) {
             Storage::disk('public')->delete($brand->image);
         }

@@ -23,6 +23,7 @@
     },
     "dependencies": {
         "select2": "^4.1.0-rc.0",
+        "sweetalert2": "^11.14.0",
         "taos": "^1.0.5",
         "trix": "^2.1.5"
     }

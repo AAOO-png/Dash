@@ -11,7 +11,7 @@
 </head>
 <body style="background-image: url('{{ asset('uploads/lala.png') }}'); background-size: cover; background-repeat: no-repeat; background-position: center center;" class="bg-gray-100">
     <div class="min-h-screen flex items-center justify-center p-6">
-        <div class="w-full max-w-md rounded-lg shadow-lg p-8 space-y-8" style="background-color: rgba(255, 255, 255, 0.74);">
+        <div class="w-full max-w-md rounded-lg shadow-lg p-8 space-y-8" style="background-color: rgba(255, 255, 255, 0.653);">
             <div class="text-center">
                 <!-- Menambahkan gambar di sini -->
                 <img src="https://dinamikaindomedia.co.id/tests/wUeRvwqCPJpADXYoiPBsJ3u0cCzuUvE1f2TbYZbF.png" alt="Logo" class="mx-auto mb-4" style="max-width: 100px;">

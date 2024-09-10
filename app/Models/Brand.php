@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Brand extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name', // Make sure the column name matches
+        'image',
+        'description', // Add description to fillable
+        'is_publish',
+    ];
 }

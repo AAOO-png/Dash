@@ -33,7 +33,7 @@
                     <select id="kategori" name="kategori[]"
                         class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 w-full p-2.5 js-example-basic-multiple" multiple="multiple">
                         @foreach ($kategoris as $kategori)
-                            <option value="{{ $kategori->id }}">{{ $kategori->name_kategori }}</option>
+                             <option value="{{ $kategori->id }}">{{ $kategori->name_kategori }}</option>
                         @endforeach
                     </select>
                 </div>

@@ -54,12 +54,14 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::delete('/slides/{id}', [SlideController::class, 'destroy'])->name('slides.destroy');
     Route::patch('/slides/{id}/toggle', [SlideController::class, 'toggle'])->name('slides.toggle');
 
-    Route::get('/product', [ProductController::class, 'showIndexAdmin'])->name('product.index');
+    // Routes for ProductController
+    Route::get('/products', [ProductController::class, 'index'])->name('product.index');
     Route::get('/products/create', [ProductController::class, 'create'])->name('product.create');
-    Route::post('/product/Create', [ProductController::class, 'store'])->name('product.store');
-    Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('product.edit');
-    Route::put('/products/{id}', [ProductController::class, 'update'])->name('product.update');
-    Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+    Route::post('/products', [ProductController::class, 'store'])->name('product.store');
+    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
+    Route::put('/products/{product}', [ProductController::class, 'update'])->name('product.update');
+    Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
+
 
     Route::get('/kerjasama', [KerjasamaController::class, 'index'])->name('kerjasama.index');
     Route::post('/kerjasama', [KerjasamaController::class, 'store'])->name('kerjasama.store');
@@ -67,6 +69,12 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/kerjasama/{id}/edit', [KerjasamaController::class, 'edit'])->name('kerjasama.edit');
     Route::patch('/kerjasama/{id}/toggle', [KerjasamaController::class, 'toggle'])->name('kerjasama.toggle');
     Route::put('/kerjasama/{id}', [KerjasamaController::class, 'update'])->name('kerjasama.update');
-    
-    Route::resource('brands', BrandController::class);
+
+    Route::get('/brands', [BrandController::class, 'index'])->name('brands.index');
+    Route::get('/brands/create', [BrandController::class, 'create'])->name('brands.create');
+    Route::post('/brands', [BrandController::class, 'store'])->name('brands.store');
+    Route::get('/brands/{brand}/edit', [BrandController::class, 'edit'])->name('brands.edit');
+    Route::put('/brands/{brand}', [BrandController::class, 'update'])->name('brands.update');
+    Route::delete('/brands/{brand}', [BrandController::class, 'destroy'])->name('brands.destroy');
 });
+

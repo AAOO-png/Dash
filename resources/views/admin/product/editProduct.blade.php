@@ -22,19 +22,6 @@
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             </div>
 
-            <!-- Category Dropdown -->
-            {{-- <div class="mb-4">
-                <label for="kategori" class="block text-sm font-medium text-gray-700">Category:</label>
-                <select id="kategori" name="kategori_id" required
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                    @foreach ($kategoris as $kategori)
-                          <option value="{{ $kategori->id }}" {{ $product->kategori_id == $kategori->id ? 'selected' : '' }}>
-                            {{ $kategori->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div> --}}
-
             <!-- Image Upload Field -->
             <div class="mb-4">
                 <label for="img" class="block text-sm font-medium text-gray-700">Upload Image:</label>
@@ -47,7 +34,7 @@
                 @endif
             </div>
 
-            <!-- Description Field -->
+            <!-- Description Field with Summernote -->
             <div class="mb-4">
                 <label for="description" class="block text-sm font-medium text-gray-700">Description:</label>
                 <textarea id="description" name="description" required
@@ -60,4 +47,23 @@
             </button>
         </form>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            $('#description').summernote({
+                placeholder: 'Enter product description...',
+                tabsize: 2,
+                height: 200,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
+        });
+    </script>
 @endsection
