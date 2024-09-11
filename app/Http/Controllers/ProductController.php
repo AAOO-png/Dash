@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Kategori;
 use App\Models\Product;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -32,50 +33,28 @@ class ProductController extends Controller
     // Simpan produk baru ke database
     public function store(Request $request)
     {
-        // Validasi input dari form
         $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'deskripsi' => 'nullable|string',
-            'kategori' => 'required|array',
-            'kategori.*' => 'exists:kategoris,id',
-            'img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'name_product' => 'required|string|max:255',
+            'slug' => 'required|string|unique:products,slug',
+            'description' => 'required|string',
+            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        try {
-            // Handle file upload
-            $fileName = time() . '.' . $request->img->extension();
-            $request->img->move(public_path('uploads'), $fileName);
+        $product = new Product();
+        $product->name_product = $request->name_product;
+        $product->slug = $request->slug;
+        $product->description = $request->description;
 
-            // Generate unique slug
-            $slug = Str::slug($request->name);
-            $originalSlug = $slug;
-            $count = 1;
-
-            // Check for slug uniqueness and modify if necessary
-            while (Product::where('slug', $slug)->exists()) {
-                $slug = "{$originalSlug}_{$count}";
-                $count++;
-            }
-
-            // Save product data to the database
-            $product = Product::create([
-                'name' => $request->name,
-                'slug' => $slug, // Save the unique slug
-                'description' => $request->deskripsi,
-                'price' => $request->price,
-                'img' => $fileName, // Save image file name
-            ]);
-
-            // Link categories to the product using the pivot table
-            $product->kategori_product()->sync($request->kategori);
-
-            // Redirect after successful save
-            return redirect()->route('product.index')->with('success', 'Product created successfully.');
-        } catch (\Exception $e) {
-            // Handle errors and provide an error message
-            return redirect()->back()->with('error', 'Something went wrong: ' . $e->getMessage())->withInput();
+        if ($request->hasFile('img')) {
+            $image = $request->file('img');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/products'), $imageName);
+            $product->img = $imageName;
         }
+
+        $product->save();
+
+        return redirect()->route('admin.product.index')->with('success', 'Product created successfully.');
     }
 
     // Tampilkan produk berdasarkan ID
@@ -120,48 +99,47 @@ class ProductController extends Controller
     }
 
     // Update produk di database
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        // Validasi input dari form
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'description' => 'nullable|string',
-            'kategori' => 'required|array',
-            'kategori.*' => 'exists:kategoris,id',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-    
-        try {
-            // Update data produk
-            $product->update([
-                'name' => $request->name,
-                'price' => $request->price,
-                'description' => $request->description,
-            ]);
-    
-            // Sinkronisasi kategori dengan produk
-            $product->kategori_product()->sync($request->kategori);
-    
-            // Jika ada gambar baru
-            if ($request->hasFile('image')) {
-                // Handle file upload
-                $fileName = time() . '.' . $request->image->extension();
-                $request->image->move(public_path('uploads'), $fileName);
-    
-                // Update nama gambar di database
-                $product->update(['img' => $fileName]);
-            }
-    
-            // Redirect setelah sukses update
-            return redirect()->route('product.index')->with('success', 'Product updated successfully.');
-        } catch (\Exception $e) {
-            // Handle errors and provide an error message
-            return redirect()->back()->with('error', 'Something went wrong: ' . $e->getMessage())->withInput();
-        }
-    }
-    
+        // Ambil produk berdasarkan ID
+        $product = Product::findOrFail($id);
 
+        // Validasi input
+        $request->validate([
+            'name_product' => 'required|string|max:255',
+            'slug' => 'required|string|unique:products,slug,' . $product->id,
+            'description' => 'required|string',
+            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Update data produk
+        $product->name_product = $request->input('name_product');
+        $product->slug = $request->input('slug');
+        $product->description = $request->input('description');
+
+        // Jika ada file gambar yang diupload
+        if ($request->hasFile('img')) {
+            $image = $request->file('img');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/products'), $imageName);
+
+            // Hapus gambar lama jika ada
+            if ($product->img && File::exists(public_path('uploads/products/' . $product->img))) {
+                File::delete(public_path('uploads/products/' . $product->img));
+            }
+
+            // Simpan nama gambar baru ke database
+            $product->img = $imageName;
+        }
+
+        // Simpan perubahan ke database
+        $product->save();
+
+        // Redirect ke halaman index dengan pesan sukses
+        return redirect()->route('admin.product.index')->with('success', 'Product updated successfully.');
+    }
+
+    // Hapus produk dari database
     public function destroy($id)
     {
         try {

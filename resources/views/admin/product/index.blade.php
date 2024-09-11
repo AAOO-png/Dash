@@ -46,9 +46,9 @@
                         @foreach ($products as $product)
                             <tr class="border-b border-gray-200">
                                 <td class="px-6 py-4 text-gray-700"> {{$loop->iteration}} </td>
-                                <td class="px-6 py-4 text-gray-700">{{ $product->name }}</td>
+                                <td class="px-6 py-4 text-gray-700">{{ $product->name_product}}</td>
                                 <td class="px-6 py-4 text-gray-700">
-                                    <img src="{{ asset('uploads/products/' . $product->img) }}" alt="{{ $product->name }}" class="w-16 h-16 object-cover">
+                                    <img src="{{ asset('uploads/products/' . $product->img) }}" alt="{{ $product->name_product}}" class="w-16 h-16 object-cover">
                                 </td>
                                 <td class="px-6 py-4 text-gray-700">
                                     @foreach($product->kategori_product as $kategori)

@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,9 +17,9 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name_product');
             $table->string('img')->nullable();
-            $table->boolean('is_publish')->default(false);
+            $table->boolean('is_publish')->default(1);
             $table->string('slug')->unique();
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
         });
     }

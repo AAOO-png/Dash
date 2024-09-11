@@ -4,65 +4,59 @@
     <div class="container mx-auto p-4">
         <h1 class="text-2xl font-bold mb-4">Edit Product</h1>
 
-        <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.product.update', $product->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
-            <!-- Name Field -->
+            <!-- Nama Produk -->
             <div class="mb-4">
-                <label for="name" class="block text-sm font-medium text-gray-700">Name:</label>
-                <input type="text" id="name" name="name" value="{{ old('name', $product->name) }}" required
+                <label for="name" class="block text-sm font-medium text-gray-700">Nama Produk:</label>
+                <input type="text" id="name" name="name_product" value="{{ old('name_product', $product->name_product) }}" required
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             </div>
 
-            <!-- Slug Field -->
+            <!-- Slug Produk -->
             <div class="mb-4">
                 <label for="slug" class="block text-sm font-medium text-gray-700">Slug:</label>
                 <input type="text" id="slug" name="slug" value="{{ old('slug', $product->slug) }}" required
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             </div>
 
-            <!-- Image Upload Field -->
+            <!-- Gambar Produk -->
             <div class="mb-4">
-                <label for="img" class="block text-sm font-medium text-gray-700">Upload Image:</label>
+                <label for="img" class="block text-sm font-medium text-gray-700">Upload Gambar:</label>
                 <input type="file" id="img" name="img"
                     class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border file:border-gray-300 file:rounded-md file:text-sm file:font-medium file:bg-gray-100 hover:file:bg-gray-200">
                 @if ($product->img)
                     <div class="mt-2">
-                        <img src="{{ asset('uploads/products/' . $product->img) }}" alt="{{ $product->name }}" width="150">
+                        <img src="{{ asset('uploads/products/' . $product->img) }}" alt="{{ $product->name_product }}" width="150">
                     </div>
                 @endif
             </div>
 
-            <!-- Description Field with Summernote -->
+            <!-- Deskripsi Produk dengan Summernote -->
             <div class="mb-4">
-                <label for="description" class="block text-sm font-medium text-gray-700">Description:</label>
-                <textarea id="description" name="description" required
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">{{ old('description', $product->description) }}</textarea>
+                <label for="description" class="block text-sm font-medium text-gray-700">Deskripsi Produk:</label>
+                <textarea id="description" name="description" class="summernote">{{ old('description', $product->description) }}</textarea>
             </div>
 
+            <!-- Tombol Submit -->
             <button type="submit"
                 class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Save Changes
+                Update Produk
             </button>
         </form>
     </div>
+@endsection
 
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            $('#description').summernote({
-                placeholder: 'Enter product description...',
-                tabsize: 2,
-                height: 200,
-                toolbar: [
-                    ['style', ['style']],
-                    ['font', ['bold', 'italic', 'underline', 'clear']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['table', ['table']],
-                    ['insert', ['link', 'picture', 'video']],
-                    ['view', ['fullscreen', 'codeview', 'help']]
-                ]
+        $(document).ready(function() {
+            $('.summernote').summernote({
+                height: 300, // Set height for the editor
+                placeholder: 'Masukkan deskripsi produk di sini...'
             });
         });
     </script>

@@ -14,13 +14,13 @@ class CreateSlidesTable extends Migration
     public function up()
     {
         Schema::create('slides', function (Blueprint $table) {
-            $table->id();
-            $table->string('name_image'); // Name that will be used for slug generation
-            $table->string('slug'); // Slug 
-            $table->string('image'); // Image 
-            $table->text('description')->nullable(); // Description 
-            $table->boolean('is_publish');
-            $table->timestamps();
+            $table->id(); // Primary key
+            $table->string('name_image'); // Nama gambar untuk generate slug
+            $table->string('slug')->unique(); // Slug harus unik
+            $table->string('image'); // Path atau nama file gambar
+            $table->text('description')->nullable(); // Deskripsi slide, optional
+            $table->boolean('is_publish')->default(false); // Status publikasi
+            $table->timestamps(); // created_at dan updated_at
         });
     }
 
@@ -34,3 +34,4 @@ class CreateSlidesTable extends Migration
         Schema::dropIfExists('slides');
     }
 }
+
