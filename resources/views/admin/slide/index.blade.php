@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="container mx-auto p-6">
-        <h1 class="text-3xl font-bold mb-6">Slides</h1>
+        <h1 class="text-2xl font-bold mb-4">slide</h1>
 
         <div class="text-xl py-4 text-white">
-            <a href="{{ route('slider.create') }}"
+            <a href="{{ route('slide.create') }}"
                 class="bg-blue-600 py-2 px-3 rounded-xl hover:bg-blue-700 duration-300 ease-in-out">
                 Create
             </a>

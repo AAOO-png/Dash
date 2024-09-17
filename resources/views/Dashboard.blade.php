@@ -1,74 +1,84 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="flex">
-    <!-- Sidebar -->
-    <!-- Main Content -->
-    <div class="w-3/4 p-6 bg-gray-100">
-        <h1 class="text-4xl font-extrabold text-gray-800 mb-8">Admin Dashboard</h1>
+<div class="container my-5">
+    <h1 class="text-center mb-4">  </h1>
 
-        <!-- Slides Section -->
-        <section>
-            <h2 class="text-2xl font-semibold text-blue-600 mb-4">Slides</h2>
-            <table class="min-w-full bg-white shadow-lg rounded-lg overflow-hidden">
-                <thead>
-                    <tr>
-                        <th class="py-3 px-6 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Image</th>
-                        <th class="py-3 px-6 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                        <th class="py-3 px-6 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach($slides as $slide)
-                        <tr class="hover:bg-gray-50 transition-colors duration-200">
-                            <td class="py-4 px-6">
-                                <img src="{{ asset('uploads/' . $slide->image) }}" alt="{{ $slide->name_image }}" class="w-24 h-24 object-cover">
-                            </td>
-                            <td class="py-4 px-6 text-gray-900">
-                                {{ $slide->name_image }}
-                            </td>
-                            <td class="py-4 px-6 text-gray-700">
-                                {{ $slide->description }}
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </section>
+    <div class="row">
+        <!-- Slides -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card text-white bg-primary shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            {{-- <h3 class="mb-0">{{ $publishedSlidesCount }} / {{ $unpublishedSlidesCount }}</h3> --}}
+                            <p class="mb-0">Slides (Published / Unpublished)</p>
+                        </div>
+                        <i class="fas fas fa-images fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <!-- Products Section -->
-        <section class="mt-12">
-            <h2 class="text-2xl font-semibold text-blue-600 mb-4">Products</h2>
-            <table class="min-w-full bg-white shadow-lg rounded-lg overflow-hidden">
-                <thead>
-                    <tr>
-                        <th class="py-3 px-6 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Image</th>
-                        <th class="py-3 px-6 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                        <th class="py-3 px-6 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                        <th class="py-3 px-6 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach($products as $product)
-                        <tr class="hover:bg-gray-50 transition-colors duration-200">
-                            <td class="py-4 px-6">
-                                <img src="{{ asset('uploads/' . $product->image) }}" alt="{{ $product->name }}" class="w-24 h-24 object-cover">
-                            </td>
-                            <td class="py-4 px-6 text-gray-900">
-                                {{ $product->name }}
-                            </td>
-                            <td class="py-4 px-6 text-gray-700">
-                                {{ $product->description }}
-                            </td>
-                            <td class="py-4 px-6 text-green-500">
-                                ${{ $product->price }}
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </section>
+        <!-- Products -->
+        <div class="col-lg-4 col-md-8 mb-4">
+            <div class="card text-white bg-success shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            {{-- <h3 class="mb-0">{{ $publishedProductsCount }} / {{ $unpublishedProductsCount }}</h3> --}}
+                            <p class="mb-0">Products (Published / Unpublished)</p>
+                        </div>
+                        <i class="fas fa-boxes fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Brands -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card text-white bg-warning shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            {{-- <h3 class="mb-0">{{ $publishedBrandsCount }} / {{ $unpublishedBrandsCount }}</h3> --}}
+                            <p class="mb-0">Brands (Published / Unpublished)</p>
+                        </div>
+                        <i class="fas fa-tags fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kerjasama -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card text-white bg-info shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            {{-- <h3 class="mb-0">{{ $publishedKerjasamaCount }} / {{ $unpublishedKerjasamaCount }}</h3> --}}
+                            <p class="mb-0">Kerjasama (Published / Unpublished)</p>
+                        </div>
+                        <i class="fas fa-handshake fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Videos -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card text-white bg-danger shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            {{-- <h3 class="mb-0">{{ $publishedVideosCount }} / {{ $unpublishedVideosCount }}</h3> --}}
+                            <p class="mb-0">Videos (Published / Unpublished)</p>
+                        </div>
+                        <i class="fas fa-video fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
-

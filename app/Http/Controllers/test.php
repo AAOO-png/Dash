@@ -25,16 +25,16 @@ class test extends Controller
         ];
 
         foreach ($kategoriNames as $name) {
-            Kategori::create(['name_kategori' => $name]);
+            Kategori::create(['name' => $name]);
         }
 
         // Buat 30 produk dengan slug unik dan deskripsi
         $products = [
-            ['Laptop', 'laptop-gaming', 'Laptop gaming dengan spesifikasi tinggi yang cocok untuk bermain game berat, dilengkapi dengan prosesor terbaru dan kartu grafis yang kuat.'],
-            ['Kaos', 'kaos-katun', 'Kaos katun berkualitas tinggi yang nyaman dipakai sehari-hari, tersedia dalam berbagai ukuran dan warna.'],
-            ['Meja', 'meja-kayu', 'Meja kayu jati yang kokoh dan tahan lama, ideal untuk ruang kerja atau ruang makan.'],
-            ['Roti', 'roti-tawar', 'Roti tawar segar yang lembut dan enak, cocok untuk sarapan atau camilan di sore hari.'],
-            ['Headphone', 'headphone-bluetooth', 'Headphone Bluetooth dengan suara jernih dan bass yang kuat, cocok untuk menikmati musik di perjalanan.'],
+            ['Laptop', 'laptop-gaming', 'Laptop gaming dengan spesifikasi tinggi yang cocok untuk bermain game berat, dilengkapi dengan prosesor terbaru dan kartu grafis yang kuat. Dimensi: Tinggi 20mm, Lebar 360mm, Tebal 25mm. Berat: 2.2kg. TINGKAT RESPONS: Report rate 1000Hz, teknologi wireless terbaru. Daya tahan baterai hingga 8 jam dalam penggunaan normal. Fitur tambahan: sistem pendinginan canggih, keyboard mekanis dengan backlight. Garansi 2 tahun.'],
+            ['Kaos', 'kaos-katun', 'Kaos katun berkualitas tinggi yang nyaman dipakai sehari-hari, tersedia dalam berbagai ukuran dan warna. SPESIFIKASI: Material 100% katun, tersedia dalam ukuran S hingga XL, tahan lama dan mudah dicuci. Fitur lainnya: anti kusut, breathable, dan ringan. Cocok untuk dipakai dalam cuaca panas maupun dingin. Garansi produk 1 tahun.'],
+            ['Meja', 'meja-kayu', 'Meja kayu jati yang kokoh dan tahan lama, ideal untuk ruang kerja atau ruang makan. DIMENSI: Panjang 150cm, Lebar 75cm, Tinggi 75cm. Berat: 25kg. Fitur lainnya: tahan air, anti gores, dan mudah dibersihkan. Dilengkapi dengan laci untuk penyimpanan alat tulis atau barang-barang kecil. Garansi 3 tahun untuk ketahanan struktur.'],
+            ['Roti', 'roti-tawar', 'Roti tawar segar yang lembut dan enak, cocok untuk sarapan atau camilan di sore hari. INFORMASI NUTRISI: 250 kalori per potong, rendah lemak, tinggi serat. Daya tahan hingga 7 hari pada suhu ruangan. Terbuat dari bahan alami tanpa pengawet tambahan. Cocok dikonsumsi dengan selai atau digunakan untuk sandwich.'],
+            ['Headphone', 'headphone-bluetooth', 'Headphone Bluetooth dengan suara jernih dan bass yang kuat, cocok untuk menikmati musik di perjalanan. SPESIFIKASI: Teknologi Bluetooth 5.0, jarak operasi hingga 10 meter. Daya tahan baterai hingga 20 jam. Fitur lainnya: noise cancelling, pengaturan equalizer, dan mikrofon internal untuk panggilan telepon. Garansi 1 tahun.'],
             ['Smartphone', 'smartphone-android', 'Smartphone Android terbaru dengan layar besar dan baterai tahan lama, dilengkapi dengan kamera berkualitas tinggi.'],
             ['Kursi', 'kursi-kantor', 'Kursi kantor ergonomis yang nyaman digunakan dalam jangka waktu lama, dilengkapi dengan penopang punggung dan roda.'],
             ['Jaket', 'jaket-winter', 'Jaket musim dingin yang hangat dan stylish, dilengkapi dengan bahan anti air dan penutup kepala.'],
@@ -65,7 +65,7 @@ class test extends Controller
 
         foreach ($products as $product) {
             Product::create([
-                'name_product' => $product[0],
+                'name' => $product[0],
                 'slug' => $product[1],
                 'description' => $product[2]
             ]);
@@ -78,7 +78,7 @@ class test extends Controller
         // Hubungkan setiap produk ke 2 hingga 4 kategori secara acak
         $products->each(function ($product) use ($kategoris) {
             $randomKategoris = $kategoris->random(rand(2, 4)); // Ambil antara 2 hingga 4 kategori acak
-            $product->kategori_produk()->syncWithoutDetaching($randomKategoris->pluck('id')->toArray());
+            $product->kategori_product()->syncWithoutDetaching($randomKategoris->pluck('id')->toArray());
         });
 
         // Periksa hasilnya

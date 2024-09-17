@@ -13,12 +13,16 @@ class CreateKategoriProdukTable extends Migration
      */
     public function up()
     {
-        Schema::create('kategori_produk', function (Blueprint $table) {
+        Schema::create('kategori_product', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->foreignId('kategori_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('kategori_id');
             $table->timestamps();
-        });       
+
+            // Foreign keys
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('kategori_id')->references('id')->on('kategoris')->onDelete('cascade');
+        });
     }
 
     /**

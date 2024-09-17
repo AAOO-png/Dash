@@ -5,6 +5,7 @@ use App\Models\Kerjasama;
 use App\Http\Controllers\test;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\SlideController;
 use App\Http\Controllers\ProductController;
@@ -76,5 +77,12 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/brands/{brand}/edit', [BrandController::class, 'edit'])->name('brands.edit');
     Route::put('/brands/{brand}', [BrandController::class, 'update'])->name('brands.update');
     Route::delete('/brands/{brand}', [BrandController::class, 'destroy'])->name('brands.destroy');
+
+    Route::get('/videos', [HomeController::class, 'showVideos'])->name('video.showVideos');
+    Route::get('/video', [HomeController::class, 'create'])->name('video.create');
+    Route::post('/videos/store', [HomeController::class, 'store'])->name('video.store');
+    Route::get('/videos/{id}/edit', [HomeController::class, 'edit'])->name('video.edit');
+    Route::put('/videos/{id}', [HomeController::class, 'update'])->name('video.update');
+    Route::delete('/videos/{id}', [HomeController::class, 'destroy'])->name('video.destroy');
 });
 

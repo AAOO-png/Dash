@@ -14,7 +14,7 @@
     table {
         width: 100%;
         border-collapse: collapse;
-        background-color: white; /* Latar belakang putih untuk tabel */
+        background-color: white;
     }
 
     table, th, td {
@@ -54,7 +54,6 @@
         background-color: #e53935;
     }
 
-    /* Tambahkan gaya untuk membungkus tabel dalam container */
     .table-container {
         background-color: white;
         padding: 16px;
@@ -98,7 +97,7 @@
     @if ($logos->isEmpty())
         <p class="text-gray-500">Tidak Ada Gambar.</p>
     @else
-        <div class="table-container"> <!-- Bungkus tabel dalam container -->
+        <div class="table-container">
             <table>
                 <thead>
                     <tr>

@@ -21,7 +21,7 @@
                         </a>
                         <div class="mt-4 sm:items-center sm:gap-4 sm:flex">
                             <p class="text-xl  font-semibold text-gray-900 sm:text-2xldark:text-white">
-                                @foreach ($product->kategori_produk as $kategori)
+                                @foreach ($product->kategori_product as $kategori)
                                     <a href="/kategories/{{ $kategori->name_kategori }}">
                                         <li class="flex hover:underline">{{ $kategori->name_kategori }}</li>
                                     </a>

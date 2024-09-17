@@ -11,6 +11,8 @@ class SlideController extends Controller
         $slides = Slide::all();
     return view('admin.slide.createslide', compact('slides'));
     }
+
+    
     
     
     public function store(Request $request)
@@ -92,12 +94,21 @@ class SlideController extends Controller
 
         return redirect()->route('slides.index')->with('success', 'Slider deleted successfully.');
     }
-    public function toggle(Request $request, $id)
-    {
-        $slider = Slide::findOrFail($id);
-        $slider->is_publish = $request->has('is_publish') ? 1 : 0;
-        $slider->save();
+    // public function toggle(Request $request, $id)
+    // {
+    //     $slider = Slide::findOrFail($id);
+    //     $slider->is_publish = $request->has('is_publish') ? 1 : 0;
+    //     $slider->save();
 
-        return redirect()->route('slides.index')->with('success', 'Slider visibility updated successfully.');
+    //     return redirect()->route('slides.index')->with('success', 'Slider visibility updated successfully.');
+    // }
+
+    public function publishSlides($id)
+    {
+        $photo = Slide::findOrFail($id);
+        $photo->is_publish = !$photo->is_publish; // Toggle nilai
+        $photo->save();
+
+        return redirect()->back()->with('success', 'Status publikasi berhasil diubah.');
     }
 }

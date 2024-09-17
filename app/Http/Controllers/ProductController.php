@@ -78,7 +78,7 @@ class ProductController extends Controller
         if ($kategori) {
             $selectedCategory = $kategori->name;
         } else {
-            $products = Product::with('kategori_product')->get();
+            $products = Product::with('kategoris')->get();
             $selectedCategory = 'All';
         }
 
@@ -92,51 +92,35 @@ class ProductController extends Controller
     }
 
     // Tampilkan form untuk mengedit produk
-    public function edit(Product $product)
+    public function edit($id)
     {
-        $kategoris = Kategori::all(); // Mengambil semua kategori
-        return view('admin.product.editProduct', compact('product', 'kategoris'));
+        $product = Product::with('kategori_product')->findOrFail($id);
+        $kategoris = Kategori::all(); // Asumsikan Anda punya model Kategori
+
+        return view('admin.product.edit', compact('product', 'kategoris'));
     }
+
 
     // Update produk di database
     public function update(Request $request, $id)
     {
-        // Ambil produk berdasarkan ID
-        $product = Product::findOrFail($id);
-
-        // Validasi input
         $request->validate([
             'name_product' => 'required|string|max:255',
-            'slug' => 'required|string|unique:products,slug,' . $product->id,
-            'description' => 'required|string',
-            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'slug' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'kategori' => 'required|array', // Pastikan kategori dikirim sebagai array
         ]);
 
-        // Update data produk
-        $product->name_product = $request->input('name_product');
-        $product->slug = $request->input('slug');
-        $product->description = $request->input('description');
+        $product = Product::findOrFail($id); // Cari produk berdasarkan ID
+        $product->name_product = $request->input('name_product'); // Update nama produk
+        $product->slug = $request->input('slug'); // Update slug
+        $product->description = $request->input('description'); // Update deskripsi
+        $product->save(); // Simpan perubahan
 
-        // Jika ada file gambar yang diupload
-        if ($request->hasFile('img')) {
-            $image = $request->file('img');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/products'), $imageName);
+        // Sinkronisasi kategori yang dipilih dengan produk
+        $product->kategori_product()->sync($request->input('kategori'));
 
-            // Hapus gambar lama jika ada
-            if ($product->img && File::exists(public_path('uploads/products/' . $product->img))) {
-                File::delete(public_path('uploads/products/' . $product->img));
-            }
-
-            // Simpan nama gambar baru ke database
-            $product->img = $imageName;
-        }
-
-        // Simpan perubahan ke database
-        $product->save();
-
-        // Redirect ke halaman index dengan pesan sukses
-        return redirect()->route('admin.product.index')->with('success', 'Product updated successfully.');
+        return redirect()->route('admin.product.index')->with('success', 'Product berhasil diperbarui');
     }
 
     // Hapus produk dari database

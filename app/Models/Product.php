@@ -12,15 +12,13 @@ class Product extends Model
     use HasFactory;
 
     // Definisikan relasi many-to-many dengan Kategori menggunakan tabel pivot kategori_produk
-    public function kategori_product()
+    public function kategoris(): BelongsToMany
     {
         return $this->belongsToMany(Kategori::class, 'kategori_produk', 'product_id', 'kategori_id');
     }
 
     // Atribut yang dapat diisi
-    protected $fillable = [
-        'name', 'slug', 'description', 'img',
-    ];
+    protected $fillable = ['name_product', 'slug', 'description', 'img'];
 
     // Atribut yang dilindungi
     protected $guarded = [
@@ -32,21 +30,21 @@ class Product extends Model
     {
         // Filter berdasarkan nama produk
         $query->when(isset($filters['search']) && $filters['search'], function ($query) use ($filters) {
-            $query->where('name', 'like', '%' . $filters['search'] . '%');
+            $query->where('name_product', 'like', '%' . $filters['search'] . '%');
         });
 
         // Filter berdasarkan kategori
         $query->when(isset($filters['kategori']) && $filters['kategori'], function ($query) use ($filters) {
-            $query->whereHas('kategori_product', function ($query) use ($filters) {
-                $query->where('slug', $filters['kategori']);
+            $query->whereHas('kategoris', function ($query) use ($filters) {
+                $query->where('name_kategori', $filters['kategori']);
             });
         });
     }
 
     // Setter untuk slug
-    public function setNameAttribute($value)
+    public function setNameProductAttribute($value)
     {
-        $this->attributes['name'] = $value;
+        $this->attributes['name_product'] = $value;
         $slug = Str::slug($value);
         $originalSlug = $slug;
         $count = 1;
