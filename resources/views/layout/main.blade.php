@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-gray-100">
-@extends('layout.watermark')
+<html lang="en" class="h-full">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,8 +21,8 @@
 
     {{-- select2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    
-    
+
+
     {{-- select2 js --}}
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
@@ -40,53 +40,135 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 
-    <title>Jp Books | Home </title>
+    <title>Jp Books | {{ $title }} </title>
 </head>
 
 <body class="h-full ">
-    <div class="min-h-full bg-gray-900 ">
-        <nav class="sticky bg-gray-900 top-0 z-50" x-data="{ isOpen: false }">
+    <div class="min-h-full ">
+        <nav class="sticky bg-blue-800 top-0 z-50" x-data="{ isOpen: false }">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 items-center justify-between">
                     <div class="flex items-center">
                         <div class="flex-shrink-0 ">
                             <a href="/">
-                                <img class="w-24 bg-gray-50 px-2 hover:bg-gray-200 rounded-full" src="https://dinamikaindomedia.co.id/tests/wUeRvwqCPJpADXYoiPBsJ3u0cCzuUvE1f2TbYZbF.png"
+                                <img class="w-24 bg-gray-50 px-2 hover:bg-gray-200 rounded-full"
+                                    src="https://dinamikaindomedia.co.id/tests/wUeRvwqCPJpADXYoiPBsJ3u0cCzuUvE1f2TbYZbF.png"
                                     alt="Jp Books">
                             </a>
                         </div>
                     </div>
                     <div class="hidden md:block">
                         <div class="ml-4 flex items-center md:ml-6">
-                            <div class="ml-10 flex items-baseline text-white space-x-4 border-b-2">
-                                <a href="#beranda" id="nav-beranda"
-                                    class="rounded-md nav-link px-3 py-2 text-sm font-medium   ease-in-out duration-300 hover:text-gray-500">
-                                    Beranda
-                                </a>
-                                <a href="#profil" id="nav-profil"
-                                    class="rounded-md nav-link px-3 py-2 text-sm font-medium  ease-in-out duration-300 hover:text-gray-500 ">
-                                    Profil
-                                </a>
-                                <a href="#produkKami" id="nav-produkKami"
-                                    class="rounded-md nav-link px-3 py-2 text-sm font-medium  ease-in-out duration-300 hover:text-gray-500 ">
-                                    Produk Kami
-                                </a>
-                                <a href="#customer" id="nav-customer"
-                                    class="rounded-md nav-link px-3 py-2 text-sm font-medium  ease-in-out duration-300 hover:text-gray-500 ">
-                                    Customer
-                                </a>
-                                <a href="#kontak" id="nav-kontak"
-                                    class="rounded-md nav-link px-3 py-2 text-sm font-medium  ease-in-out duration-300 hover:text-gray-500 ">
-                                    Kontak
-                                </a>
+                            <div class="ml-10 flex items-baseline text-white space-x-4 hover:border-b-2">
+
+                                {{--  --}}
+                                @if ($title == 'Home')
+                                    <a href="/" id="nav-beranda"
+                                        class="nav-link border-b-2 px-3 py-2 text-md hover:text-gray-500">
+                                        <p
+                                            class="font-medium transform scale-75 hover:scale-90 transition ease-in-out duration-300">
+                                            Beranda
+                                        </p>
+                                    </a>
+                                @else
+                                    <a href="/" id="nav-beranda"
+                                        class="nav-link px-3 py-2 text-md font-medium transform scale">
+                                        <p
+                                            class="-75 hover:scale-90 transition ease-in-out duration-300 hover:text-gray-500">
+                                            Beranda
+                                        </p>
+                                    </a>
+                                @endif
+                                {{--  --}}
+
+                                {{--  --}}
+                                @if ($title == 'Profil')
+                                    <a href="/profil" id="nav-profil"
+                                        class="nav-link border-b-2 px-3 py-2 hover:text-gray-500 ">
+                                        <p
+                                            class="font-medium transform scale-75 hover:scale-90 transition ease-in-out duration-300">
+                                            Profil
+                                        </p>
+                                    </a>
+                                @else
+                                    <a href="/profil" id="nav-profil" class="nav-link px-3 py-2 hover:text-gray-500 ">
+                                        <p
+                                            class="-75 hover:scale-90 transition ease-in-out duration-300 hover:text-gray-500">
+                                            Profil
+                                        </p>
+                                    </a>
+                                @endif
+                                {{--  --}}
+
+                                {{--  --}}
+                                @if ($title == 'Products')
+                                    <a href="/products" id="nav-produkKami"
+                                        class="nav-link border-b-2 px-3 py-2 text-md hover:text-gray-500 ">
+                                        <p
+                                            class="font-medium transform scale-75 hover:scale-90 transition ease-in-out duration-300">
+                                            Produk Kami
+                                        </p>
+                                    </a>
+                                @else
+                                    <a href="/products" id="nav-produkKami"
+                                        class="nav-link px-3 py-2 text-md hover:text-gray-500 ">
+                                        <p
+                                            class="-75 hover:scale-90 transition ease-in-out duration-300 hover:text-gray-500">
+                                            Produk Kami
+                                        </p>
+                                    </a>
+                                @endif
+                                {{--  --}}
+
+                                {{--  --}}
+                                @if ($title == 'Customer')
+                                    <a href="/customers" id="nav-customer"
+                                        class="nav-link border-b-2 px-3 py-2 text-md hover:text-gray-500 ">
+                                        <p
+                                            class="font-medium transform scale-75 hover:scale-90 transition ease-in-out duration-300">
+                                            Customer
+                                        </p>
+                                    </a>
+                                @else
+                                    <a href="/customers" id="nav-customer"
+                                        class="nav-link px-3 py-2 text-md hover:text-gray-500 ">
+                                        <p
+                                            class="-75 hover:scale-90 transition ease-in-out duration-300 hover:text-gray-500">
+                                            Customer
+                                        </p>
+                                    </a>
+                                @endif
+                                {{--  --}}
+
+                                {{--  --}}
+                                @if ($title == 'Kontak')
+                                    <a href="/kontak" id="nav-kontak"
+                                        class="nav-link border-b-2 px-3 py-2 text-md hover:text-gray-500 ">
+                                        <p
+                                            class="font-medium transform scale-75 hover:scale-90 transition ease-in-out duration-300">
+                                            Kontak
+                                        </p>
+                                    </a>
+                                @else
+                                    <a href="/kontak" id="nav-kontak"
+                                        class="nav-link px-3 py-2 text-md hover:text-gray-500 ">
+                                        <p
+                                            class="-75 hover:scale-90 transition ease-in-out duration-300 hover:text-gray-500">
+                                            Kontak
+                                        </p>
+                                    </a>
+                                @endif
+                                {{--  --}}
+
                             </div>
+
                         </div>
                     </div>
 
                     <div class="-mr-2 flex md:hidden">
                         <!-- Mobile menu button -->
                         <button @click="isOpen = !isOpen" type="button"
-                            class="relative inline-flex items-center justify-center rounded-md bg-blue-500 p-2 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                            class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-50 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-50"
                             aria-controls="mobile-menu" aria-expanded="false">
                             <span class="absolute -inset-0.5"></span>
                             <span class="sr-only">Open main menu</span>
@@ -112,73 +194,36 @@
                 x-transition:leave="transition ease-in duration-75 transform"
                 x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
                 class="md:hidden" id="mobile-menu">
-                <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+                <div class="space-y-1 text-gray-50 px-2 pb-3 pt-2 sm:px-3">
                     <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                    <a href="/katalog"
-                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-700  hover:text-gray-500">Beranda</a>
-                    <a href="/katalog"
-                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-700  hover:text-gray-500">Katalog</a>
-                    <a href="/tentang-kami"
-                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-700  hover:text-gray-500">Tentang
-                        Kami</a>
+                    <a href="/"
+                        class="block rounded-md px-3 py-2 text-base font-medium transform scale-75 hover:scale-90 transition  hover:text-gray-500">
+                        Beranda</a>
+                    <a href="/profil"
+                        class="block rounded-md px-3 py-2 text-base font-medium transform scale-75 hover:scale-90 transition  hover:text-gray-500">
+                        Profil</a>
+                    <a href="/products"
+                        class="block rounded-md px-3 py-2 text-base font-medium transform scale-75 hover:scale-90 transition  hover:text-gray-500">
+                        Produk Kami</a>
+                    <a href="/customers"
+                        class="block rounded-md px-3 py-2 text-base font-medium transform scale-75 hover:scale-90 transition  hover:text-gray-500">
+                        Customer</a>
                     <a href="/kontak"
-                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-700  hover:text-gray-500">Kontak</a>
+                        class="block rounded-md px-3 py-2 text-base font-medium transform scale-75 hover:scale-90 transition  hover:text-gray-500">
+                        kontak</a>
                 </div>
             </div>
         </nav>
 
-        <header class="">
+        <body class="">
             <div class="">
                 @yield('container')
             </div>
-        </header>
+            @include('layout.footer')
+        </body>
+
     </div>
-    <script>
-        $(document).ready(function(){
-            $('.js-example-basic-single').select2();
-
-        })
-
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault(); // Mencegah perilaku default
-                const targetID = this.getAttribute('href').substring(1); // Ambil ID target
-                const targetElement = document.getElementById(targetID);
-
-                window.scrollTo({
-                    top: targetElement.offsetTop,
-                    behavior: 'smooth' // Scrolling smooth
-                });
-            });
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-            const navLinks = document.querySelectorAll('.nav-link');
-
-            function updateActiveLink() {
-                let currentSection = '';
-                const sections = document.querySelectorAll('section');
-
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop - 100;
-                    if (pageYOffset >= sectionTop) {
-                        currentSection = section.getAttribute('id');
-                    }
-                });
-
-            //     navLinks.forEach(link => {
-            //         link.classList.remove('text-blue-500');
-            //         link.classList.add('text-gray-500');
-            //         if (link.getAttribute('href') === `#${currentSection}`) {
-            //             link.classList.add('text-blue-500');
-            //             link.classList.remove('text-gray-500');
-            //         }
-            //     });
-            // }
-
-            window.addEventListener('scroll', updateActiveLink);
-            updateActiveLink(); // Call once on load to set the initial active link
-        });
-    </script>
+    <script></script>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 <div class="sticky top-0 w-64 h-screen bg-gray-800 text-white p-6 flex flex-col justify-between">
     <div>
-        <h2 class="text-xl font-medium mb-8">Selamat datang</h2>
+        <h2 class="text-xl font-medium mb-8">Selamat datang {{ Auth::user()->name }}</h2>
         <ul>
             <li class="mb-6">
                 <a href="{{ route('dashboard') }}" class="text-base hover:text-gray-300 flex items-center">
@@ -36,6 +36,12 @@
                 <a href="{{ route('admin.video.showVideos') }}" class="text-base hover:text-gray-300 flex items-center">
                     <i class="fas fa-film text-xl mr-4"></i>
                     <span>Video</span>
+                </a>
+            </li>
+            <li class="mb-6">
+                <a href="{{ route('pesan.index') }}" class="text-base hover:text-gray-300 flex items-center">
+                    <i class="fas fa-envelope text-xl mr-4"></i>
+                    <span>Pesan Masuk</span>
                 </a>
             </li>
         </ul>

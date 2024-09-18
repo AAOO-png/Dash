@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\PesanController;
 use App\Http\Controllers\SlideController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KerjasamaController;
@@ -29,6 +31,7 @@ Route::get('/slide', function () {
 
 Route::get('/create', [test::class, 'index']);
 Route::get('/product/{slug}', [ProductController::class, 'show']);
+Route::get('/profil',[ProfilController::class, 'index'] );
 Route::get('/kategories/{kategori:name_kategori}', [ProductController::class, 'showByKategori']);
 
 // Resource untuk produk
@@ -84,5 +87,17 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/videos/{id}/edit', [HomeController::class, 'edit'])->name('video.edit');
     Route::put('/videos/{id}', [HomeController::class, 'update'])->name('video.update');
     Route::delete('/videos/{id}', [HomeController::class, 'destroy'])->name('video.destroy');
+    
+
+    Route::get('profil', [ProfilController::class, 'showIndex'])->name('profil.index');
+    Route::get('profil/show/{id}', [ProfilController::class, 'show'])->name('profil.show');
+    Route::get('profil/create', [ProfilController::class, 'create'])->name('profil.create');
+    Route::post('profil/store', [ProfilController::class, 'store'])->name('profil.store');
+    Route::get('profil/{id}/edit', [ProfilController::class, 'edit'])->name('profil.edit');
+    Route::put('profil/{id}', [ProfilController::class, 'update'])->name('profil.update');
+    Route::delete('profil/{id}', [ProfilController::class, 'destroy'])->name('profil.destroy');
 });
+
+Route::get('/admin/pesan', [PesanController::class, 'index'])->name('pesan.index');
+
 

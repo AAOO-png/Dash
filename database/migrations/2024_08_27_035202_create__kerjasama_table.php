@@ -19,6 +19,7 @@ class CreateKerjasamaTable extends Migration
             $table->string('name_img');
             $table->string("image")->image; // Nama file logo
             $table->timestamps();
+            $table->boolean('is_publish')->default(1);
         });
     }
     public function destroy($id)

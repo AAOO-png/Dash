@@ -1,11 +1,10 @@
-
 <?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKategoriProdukTable extends Migration
+class CreateMassageTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +13,16 @@ class CreateKategoriProdukTable extends Migration
      */
     public function up()
     {
-        Schema::create('kategori_produk', function (Blueprint $table) {
+        Schema::create('massage', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained()->onDelete('restrict');
-            $table->foreignId('kategori_id')->constrained()->onDelete('restrict');
+            $table->string('name');
+            $table->string('instansi');
+            $table->string('jabatan');
+            $table->string('kota');
+            $table->string('no_whatsapp');
+            $table->text('message');
             $table->timestamps();
-        });        
+        });
     }
 
     /**
@@ -29,6 +32,6 @@ class CreateKategoriProdukTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kategori_produk');
+        Schema::dropIfExists('massage');
     }
 }

@@ -18,7 +18,9 @@ class CreateBrandsTable extends Migration
             $table->string('name');
             $table->string('image');
             $table->timestamps();
+            $table->boolean('is_publish')->default(1);  
         });
+
         
     }
 

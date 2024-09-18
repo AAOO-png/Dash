@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mx-auto p-6">
-        <h1 class="text-3xl font-bold mb-6">Slides</h1>
+        <h1 class="text-3xl font-bold mb-6">Video</h1>
 
         <div class="text-xl py-4 text-white">
             <a href="{{ route('admin.video.create') }}"
@@ -13,7 +13,7 @@
 
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-red-400">
+                <thead class="bg-red-500">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">No</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Nama</th>
